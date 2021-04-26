@@ -16,6 +16,7 @@
 		내용 : <textarea rows="10" cols="10" name="ctnt"></textarea>
 	</div>
 	<div>
+		
 		<input type="submit" value="글쓰기">
 		<input type="reset" value="초기화">
 	</div>

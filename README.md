@@ -4,7 +4,7 @@
 바로가기
 [JSP]BoardVer 
 <br>
-<ins>CRUD,주석추가,JSP <--> Servlet 이동주소추가</ins>
+<ins>CRUD,주석추가</ins>
 <br>
 https://github.com/rklpoi1234/Web/tree/main/%5BJSP%5DBoardVer/WebContent/WEB-INF/jsp <strong>JSP</strong>
 <br>

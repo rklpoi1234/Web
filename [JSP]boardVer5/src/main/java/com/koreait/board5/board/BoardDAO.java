@@ -40,7 +40,7 @@ public class BoardDAO {
 		
 	}
 	public static List<BoardVO> selBoardList() {
-		List<BoardVO> list = new ArrayList<BoardVO>();
+		List<BoardVO> list = new ArrayList();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -59,17 +59,18 @@ public class BoardDAO {
 			
 			while(rs.next())
 			{
-				int iboard = rs.getInt("iboard");
-				String title = rs.getString("title");
-				String regdt = rs.getString("regdt");
-				String unm = rs.getString("unm");
+//				int iboard = rs.getInt("iboard");
+//				String title = rs.getString("title");
+//				String regdt = rs.getString("regdt");
+//				String unm = rs.getString("unm");
 				
 				BoardVO vo = new BoardVO();
 				
-				vo.setIboard(iboard);
-				vo.setTitle(title);
-				vo.setRegdt(regdt);
-				vo.setUnm(unm);
+				vo.setIboard(rs.getInt("iboard"));
+				vo.setTitle(rs.getString("title"));
+				vo.setRegdt(rs.getString("regdt"));
+				vo.setIuser(rs.getInt("iuser"));
+				vo.setUnm(rs.getString("unm"));
 				
 				list.add(vo);
 				
@@ -84,7 +85,7 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public static BoardVO selBoard(int iboard)
+	public static BoardVO selBoard(BoardVO vo )
 	
 	{	
 		Connection con = null;
@@ -92,7 +93,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		BoardVO data =null;
 		
-		String sql = "SELECT A.title, A.iuser, A.regdt, A.ctnt, B.unm as ddd"
+		String sql = "SELECT A.iboard, A.title, A.iuser, A.regdt, A.ctnt, B.unm as ddd"
 				+ " FROM t_board A "
 				+ " LEFT JOIN t_user B "
 				+ " ON A.iuser = B.iuser "
@@ -102,24 +103,25 @@ public class BoardDAO {
 		try {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, iboard);
+			ps.setInt(1, vo.getIboard());
 			rs = ps.executeQuery();
 			
 			if (rs.next()) 
 			{
-				String title = rs.getString("title");
-				String ctnt = rs.getString("ctnt");
-				String regdt = rs.getString("regdt");
-				String unm = rs.getString("ddd");
-				int iuser = rs.getInt("iuser");
-				
+//				int iboard = rs.getInt("iboard");
+//				String title = rs.getString("title");
+//				String ctnt = rs.getString("ctnt");
+//				String regdt = rs.getString("regdt");
+//				String unm = rs.getString("ddd");
+//				int iuser = rs.getInt("iuser");
+//				
 				data = new BoardVO();
-				data.setIboard(iboard);
-				data.setTitle(title);
-				data.setCtnt(ctnt);
-				data.setRegdt(regdt);
-				data.setUnm(unm);
-				data.setIuser(iuser);
+				data.setIboard(rs.getInt("iboard"));
+				data.setTitle(rs.getString("title"));
+				data.setCtnt(rs.getString("ctnt"));
+				data.setRegdt(rs.getString("regdt"));
+				data.setUnm(rs.getString("ddd"));
+				data.setIuser(rs.getInt("iuser"));
 				
 			}
 			return data;

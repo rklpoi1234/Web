@@ -6,13 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>list2</title>
-<script defer src="/res/js/boardList.js">
+<link type="stylesheet" href="/css/boardList.css?ver=3">
+<script defer src="/res/js/boardList.js?ver=7">
 </script>
 </head>
 <body>
 	<h1>list2</h1>
 	<div>
-		${loginUser.unm }님 (${loginUser.uid }) welcome
+		${sessionScope.loginUser.unm }님 (${sessionScope.loginUser.uid }) welcome
 	</div>
 	<a href="/board2/logout">logout</a>
 	<a href="/board/write2">write</a>

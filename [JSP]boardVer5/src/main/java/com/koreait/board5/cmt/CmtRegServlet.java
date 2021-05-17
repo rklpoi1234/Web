@@ -1,4 +1,4 @@
-package com.koreait.board5.board2;
+package com.koreait.board5.cmt;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,38 +6,47 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.koreait.board5.MyUtils;
-import com.koreait.board5.board.BoardDAO;
 import com.koreait.board5.board.BoardVO;
-import com.koreait.board5.cmt.CmtDAO;
-import com.koreait.board5.cmt.CmtVo;
-import com.koreait.board5.user.UserVo;
 
-
-@WebServlet("/board2/detail2")
-public class BoardDetailServlet2 extends HttpServlet {
+@WebServlet("/board/regCmt")
+public class CmtRegServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardDetailServlet2() {
+    public CmtRegServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int iboard = MyUtils.getParamInt("iboard", request);
-//		BoardVO param = new BoardVO();
-//		param.setIboard(iboard);
-		BoardVO param = new BoardVO();
-		param.setIboard(iboard);
-		request.setAttribute("BoardUser", BoardDAO.selBoard(param));
-		request.setAttribute("CmtList", CmtDAO.selCmtList(iboard));
+		int icmt = MyUtils.getParamInt("icmt", request);
+		int iuser = MyUtils.getLoginUserPk(request);
 		
-		MyUtils.openJSP("boardTest/detail2", request, response);
+		CmtVo vo = new CmtVo();
+		vo.setIcmt(icmt);
+		vo.setIuser(iuser);
+		
+		CmtDAO.delCmt(vo);
+		
+		response.sendRedirect("/board2/detail2?iboard=" + iboard);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int iboard = MyUtils.getParamInt("iboard", request);
+		String cmt = request.getParameter("cmt");
+		int iuser = MyUtils.getLoginUserPk(request);
+		
+		CmtVo vo = new CmtVo();
+		
+		vo.setIboard(iboard);
+		vo.setCmt(cmt);
+		vo.setIuser(iuser);
+		
+		CmtDAO.insCmt(vo);
+		
+		response.sendRedirect("/board2/detail2?iboard=" + iboard);
 	}
 
 }

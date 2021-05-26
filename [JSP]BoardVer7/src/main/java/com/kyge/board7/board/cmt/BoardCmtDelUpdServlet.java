@@ -1,4 +1,4 @@
-package com.kyge.board7.board;
+package com.kyge.board7.board.cmt;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,26 +9,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kyge.board7.MyUtils;
 
-@WebServlet("/board/detail")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet("/board/cmtDelUpd")
+public class BoardCmtDelUpdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public BoardDetailServlet() {
+    public BoardCmtDelUpdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    //댓글 삭제
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int iboard = MyUtils.getParamInt("iboard", request);
+		int icmt = MyUtils.getParamInt("icmt", request);
+		int iuser = MyUtils.getLoginUserPk(request);
 		
-		BoardDTO param = new BoardDTO();
-		param.setIboard(iboard);
+		BoardCmtEntity param = new BoardCmtEntity();
+		param.setIcmt(icmt);
+		param.setIuser(iuser);
 		
-		request.setAttribute("data", BoardDAO.selBoard(param));
-		MyUtils.openJSP("detail", "board/detail", request, response);
+		int result = BoardCmtDAO.delBoardCmt(param);
+		
+		response.getWriter()
+		.append("{")
+		.append("\"result\":")
+		.append(String.valueOf(result))
+		.append("}")
+		.flush();
+		
 	}
-
+	//댓글 수정
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 
 }

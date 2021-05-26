@@ -4,24 +4,6 @@
     <link rel="stylesheet" href="/res/css/boardList.css">
 
 
-</table>
-	<header>
-		<nav>
-			<ul>
-				<c:if test="${sessionScope.loginUser == null }">
-				<li><a href="/user/login">로그인</a></li>
-				</c:if>
-
-				<c:if test="${sessionScope.loginUser != null }">
-				<li><a href="/user/logwriterNm">로그아웃</a></li>
-				</c:if>
-				<li><a href="/user/list">리스트</a></li>
-				<li><a href="/user/write">글쓰기</a></li>
-				<li><a href="/user/favoriteList">좋아요</a></li>
-			</ul>
-		</nav>
-	</header>
-</table>
 <h1>리스트</h1>
 
 <table>
@@ -33,28 +15,28 @@
 	</tr>
 	<c:forEach items="${requestScope.list}" var="item">
 		<tr class="record" onclick="moveToDetail(${item.iboard})">
-			<td>${item.iboard }</td>
-			<td>
+			<td>${item.iboard}</td>
+			<td>				
 				<c:choose>
 					<c:when test="${param.searchType eq 1 || param.searchType eq 2}">
-					 	${item.title.replace(param.searchText, '<mark>' += param.searchText += '</mark>') }
+						${item.title.replace(param.searchText, '<mark>' += param.searchText += '</mark>')}
 					</c:when>
 					<c:otherwise>
-						${item.title }
-					</c:otherwise>
-				</c:choose>	
+						${item.title}	
+					</c:otherwise>	
+				</c:choose>
 			</td>
 			<td>
 				<c:choose>
-					<c:when test="${param.searchType eq 1 || param.searchType eq 2}">
-					 	${item.title.replace(param.searchText, '<mark>' += param.searchText += '</mark>') }
+					<c:when test="${param.searchType eq 4}">
+						${item.writerNm.replace(param.searchText, '<mark>' += param.searchText += '</mark>')}
 					</c:when>
 					<c:otherwise>
-						${item.title }
+						${item.writerNm}	
 					</c:otherwise>
-				</c:choose>	
+				</c:choose>
+				
 			</td>
-			<td>${item.writerNm}</td>
 			<td>${item.regdt}</td>
 		</tr>
 		</c:forEach>
@@ -88,4 +70,4 @@
 	</form>
 </div>
 
-<script src="/res/js/boardList.js"></script>
+<script src="/res/js/BoardList.js"></script>

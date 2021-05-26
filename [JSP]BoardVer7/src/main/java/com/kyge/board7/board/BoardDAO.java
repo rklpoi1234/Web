@@ -160,17 +160,16 @@ public class BoardDAO {
 			rs = ps.executeQuery();
 			if (rs.next())
 			{
+				result = new BoardDomain();
 				result.setIboard(param.getIboard());
 				result.setCtnt(rs.getString("ctnt"));
 				result.setIuser(rs.getInt("iuser"));
 				result.setRegdt(rs.getString("regdt"));
 				result.setTitle(rs.getString("title"));
 				result.setWriterNm(rs.getString("writerNm"));
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			// TODO: handle exception
 		} finally {
 			DBUtils.close(con, ps, rs);
 		}

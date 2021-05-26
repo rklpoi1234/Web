@@ -11,13 +11,13 @@ import javax.servlet.http.HttpSession;
 import com.kyge.board7.user.UserEntity;
 
 public class MyUtils {
-	public static void openJSP (String title,String page, HttpServletRequest req, HttpServletResponse res)
+	public static void openJSP (String title,String jsp, HttpServletRequest req, HttpServletResponse res)
 	throws ServletException, IOException
 	{
 		req.setAttribute(Const.TITLE, title);
-		req.setAttribute(Const.PAGE, page);
-		String jsp = "/WEB-INF/view/template.jsp";
-		req.getRequestDispatcher(jsp).forward(req, res);
+		req.setAttribute(Const.JSP, jsp);
+		String Gjsp = "/WEB-INF/view/template.jsp";
+		req.getRequestDispatcher(Gjsp).forward(req, res);
 	}
 	
 	public static int getParamInt(String key, HttpServletRequest req)
@@ -36,13 +36,13 @@ public class MyUtils {
 		}
 		
 	}
-//	public static int getLoginUserPk(HttpServletRequest req)
-//	{
-//		if (req == null) {
-//			return 0;
-//		}
-//		return getLoginUser(req).getIuser();
-//	}
+	public static int getLoginUserPk(HttpServletRequest req)
+	{
+		if (req == null) {
+			return 0;
+		}
+		return getLoginUser(req).getIuser();
+	}
 	
 	public static UserEntity getLoginUser(HttpServletRequest req)
 	{

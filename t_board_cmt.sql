@@ -20,8 +20,8 @@ INSERT INTO t_board_cmt (iboard,iuser,cmt) VALUES(7,2,3324234);
 
 SELECT * FROM t_board_cmt;
 
-SELECT a.icmt, a.iuser, a.cmt, a.regdate , b.unm
+SELECT a.icmt, a.cmt, a.regdate , b.unm ,a.iuser
 FROM t_board_cmt AS a
-LEFT JOIN t_user AS b
+inner JOIN t_user AS b
 ON a.iuser = b.iuser
-WHERE a.iboard = 7?;
+WHERE iboard = 7;

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.koreait.spring2.KoreaMapper">
+    <select id="selLocationCodeList" resultType="LocationCodeEntity">
+        select Cd, localArea, extarnalAreaCd
+        FROM location_code
+    </select>
+
+    <insert id="insApartmentInfoArr">
+        INSERT INTO apartment_info
+    (
+        sec_amount, build_year , sec_year, sec_monut, sec_day, dong ,apratment_name, area_for_ex_use, jibun, flr, location_cd
+    )
+        VALUES
+        <foreach collection="arr" item="item" separator=",">
+        (
+            #{item.sec_amount}, #{item.build_year} , #{item.sec_year}, #{item.sec_monut}, #{item.sec_day},
+            #{item.dong} ,#{item.apratment_name}, #{item.area_for_ex_use}, #{item.jibun}, #{item.flr}, #{location_cd}
+        )
+        </foreach>
+
+    </insert>
+
+    <select id="selApartmentIfList" resultType="ApartmentIfEnt">
+        SELECT A.* FROM apartment_info AS A
+        INNER JOIN location_code AS B
+        ON A.location_cd = B.Cd
+        WHERE A.sec_year = #{sec_year}
+          AND A.sec_monut = #{sec_monut}
+          AND B.extarnalAreaCd = #{externalAreaCd};
+    </select>
+
+    <select id="selLocationCodeList" resultType="LocationCodeEntity">
+        SELECT Cd, localArea, externalAreaCd
+        FROM location_code
+        <if test="externalAreaCd != null and externalAreaCd != ''">
+            WHERE externalAreaCd = #{externalAreaCd}
+        </if>
+    </select>
+</mapper>
